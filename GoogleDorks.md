@@ -84,3 +84,6 @@ These dorks can be combined to create more complex queries.
 ## Practices
 
 [*] [Room Google dorking](https://tryhackme.com/room/googledorking) 
+[*] [Google H DB](https://www.exploit-db.com/google-hacking-database)
+
+Disclamer: Google dorking is not illegal, but using it to access sensitive information without permission is illegal. Always ensure you have permission before using Google dorks to search for information.
