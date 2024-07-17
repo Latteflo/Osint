@@ -4,7 +4,7 @@ This repository is hosting all the notes and tools I have gathered during my OSI
 
 ## Tools
  - [Google Dorks](GoogleDorks.md)
- - Browsing Internet resources
+ - [Browsing Internet resources](InternetResources.md)
  - Shodan
  - Maltego
  - Osint Framework
