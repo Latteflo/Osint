@@ -7,4 +7,4 @@ This repository is hosting all the notes and tools I have gathered during my OSI
  - [Browsing Internet resources](resources/InternetResources.md)
  - [Shodan](resources/Shodan.md)
  - [Maltego](resources/Maltego.md)
- - Osint Framework
+ - [Osint Framework](resources/OsintFramework.md)
