@@ -8,4 +8,3 @@ This repository is hosting all the notes and tools I have gathered during my OSI
  - [Shodan](resources/Shodan.md)
  - [Maltego](resources/Maltego.md)
  - Osint Framework
-  
