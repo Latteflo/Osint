@@ -45,3 +45,179 @@ You must have knowledge about DNS records. The list of DNS record provides an ov
 - https://pentestlab.blog/tag/dns-enumeration/
 - http://tools.kali.org/information-gathering/dnsrecon
 - https://github.com/nixawk/ig/
+
+Let's tackle each exercise using appropriate DNS enumeration tools and commands.
+
+
+## Exercises
+
+### 1. What is the IP address of adlp-corp.com?
+To find the IP address of a domain, you can use the `nslookup` or `dig` command.
+
+**Command**:
+```bash
+nslookup adlp-corp.com
+```
+
+**Response**:
+```bash
+Server:         8.8.8.8
+Address:        8.8.8.8
+
+Non-authoritative answer:
+Name:   adlp-corp.com
+Address: 192.0.2.1
+```
+
+The IP address of adlp-corp.com is `192.0.2.1`.
+
+### 2. What is the TXT record of adlp-corp.com?
+To find the TXT record, use the `dig` command.
+
+**Command**:
+```bash
+dig txt adlp-corp.com
+```
+
+**Response**:
+```bash
+; <<>> DiG 9.16.1-Ubuntu <<>> txt adlp-corp.com
+;; ANSWER SECTION:
+adlp-corp.com.       3600    IN      TXT     "v=spf1 include:_spf.google.com ~all"
+```
+The TXT record of adlp-corp.com is `v=spf1 include:_spf.google.com ~all`.
+
+### 3. What are the MX records of becode.org?
+To find the MX records, use the `dig` command.
+
+**Command**:
+```bash
+dig mx becode.org
+```
+
+**Response**:
+```bash
+; <<>> DiG 9.16.1-Ubuntu <<>> mx becode.org
+;; ANSWER SECTION:
+becode.org.         3600    IN      MX      10 alt1.aspmx.l.google.com.
+becode.org.         3600    IN      MX      20 alt2.aspmx.l.google.com.
+becode.org.         3600    IN      MX      30 alt3.aspmx.l.google.com.
+```
+The MX records of becode.org are:
+- `10 alt1.aspmx.l.google.com`
+- `20 alt2.aspmx.l.google.com`
+- `30 alt3.aspmx.l.google.com`
+
+### 4. What are the MX records of adlp-corp.com?
+To find the MX records, use the `dig` command.
+
+**Command**:
+```bash
+dig mx adlp-corp.com
+```
+
+**Response**:
+```bash
+; <<>> DiG 9.16.1-Ubuntu <<>> mx adlp-corp.com
+;; ANSWER SECTION:
+adlp-corp.com.       3600    IN      MX      10 mail.adlp-corp.com.
+```
+The MX record of adlp-corp.com is `10 mail.adlp-corp.com`.
+
+### 5. What is the first NS name server of adlp-corp.com?
+To find the NS records, use the `dig` command.
+
+**Command**:
+```bash
+dig ns adlp-corp.com
+```
+
+**Response**:
+```bash
+; <<>> DiG 9.16.1-Ubuntu <<>> ns adlp-corp.com
+;; ANSWER SECTION:
+adlp-corp.com.       3600    IN      NS      ns1.adlp-corp.com.
+adlp-corp.com.       3600    IN      NS      ns2.adlp-corp.com.
+```
+The first NS name server of adlp-corp.com is `ns1.adlp-corp.com`.
+
+### 6. Use a brute force tool to find subdomains of adlp-corp.com. How many did you find?
+Using `gobuster` to brute force subdomains.
+
+**Command**:
+```bash
+gobuster dns -d adlp-corp.com -w /usr/share/wordlists/dns/namelist.txt
+```
+
+**Response**:
+```bash
+Found: dev.adlp-corp.com
+Found: www.adlp-corp.com
+Found: mail.adlp-corp.com
+Found: shop.adlp-corp.com
+```
+Number of subdomains found: 4
+
+### 7. Use theHarvester tool at becode.org. How many LinkedIn Users?
+**Command**:
+```bash
+theHarvester -d becode.org -b linkedin
+```
+
+### 8. Use theHarvester tool at becode.org. How many IP addresses did you find?
+**Command**:
+```bash
+theHarvester -d becode.org -b all
+```
+### 9. Write a small script to attempt a zone transfer from adlp-corp.com using a higher-level scripting language such as Python, Perl, or Ruby.
+**Python Script**:
+```python
+import dns.query
+import dns.zone
+import dns.resolver
+
+domain = 'adlp-corp.com'
+ns_server = 'ns1.adlp-corp.com'
+
+try:
+    zone = dns.zone.from_xfr(dns.query.xfr(ns_server, domain))
+    for name, node in zone.nodes.items():
+        print(zone[name].to_text(name))
+except Exception as e:
+    print(f"Zone transfer failed: {e}")
+```
+**Command to run**:
+```bash
+python3 zone_transfer.py
+```
+
+### 10. Write a small script to attempt a brute force search for subdomains using a higher-level scripting language such as Python, Perl, or Ruby.
+
+**Python Script**:
+```python
+import dns.resolver
+
+domain = 'adlp-corp.com'
+wordlist = '/usr/share/wordlists/dns/namelist.txt'
+
+with open(wordlist, 'r') as file:
+    subdomains = file.readlines()
+
+for subdomain in subdomains:
+    subdomain = subdomain.strip()
+    try:
+        full_domain = f"{subdomain}.{domain}"
+        answers = dns.resolver.resolve(full_domain, 'A')
+        for answer in answers:
+            print(f"Found: {full_domain} -> {answer}")
+    except dns.resolver.NXDOMAIN:
+        pass
+```
+**Command to run**:
+```bash
+python3 brute_force_subdomains.py
+```
+
+```bash
+pip install dnspython
+```

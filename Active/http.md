@@ -190,3 +190,88 @@ Please, follow this link :
 - https://hackertarget.com/nikto-tutorial/
 - https://techyrick.com/nikto-2/
 
+
+
+## Exercises 
+⚠️⚠️⚠️ Please save your answers. Your coaches may ask you for a copy of all your answers at the end of the challenge. ⚠️⚠️⚠️
+
+IP : 10.12.1.4x
+
+### 1. How many files could you find on port 80?
+We use Gobuster to enumerate files and directories on port 80.
+
+```bash
+gobuster dir -u http://10.12.1.4x -w /usr/share/wordlists/dirb/common.txt
+```
+
+### 2. What is the version of Apache?
+We can use `curl` to get the server headers and find the Apache version.
+
+```bash
+curl -I http://10.12.1.4x
+```
+Response:
+```
+Server: Apache/2.4.29 (Ubuntu)
+```
+
+### 3. What is the version of PHP?
+we can use `Nikto` to scan the web server for detailed information, including PHP version.
+
+```bash
+nikto -h http://10.12.1.4x
+```
+
+### 4. What server extension is installed?
+
+```bash
+nikto -h http://10.12.1.4x
+```
+**Response**: The output will show various vulnerabilities and extensions.
+```
+/phpinfo.php - PHP Info (shows detailed information about PHP configuration)
+```
+
+### 5. What is the name of the file in `testoutput`?
+Check the contents of the `testoutput` directory using Gobuster.
+
+```bash
+gobuster dir -u http://10.12.1.4x/testoutput -w /usr/share/wordlists/dirb/common.txt
+```
+**Response**: The output will list files in the `testoutput` directory.
+```
+/testoutput/info.php  (Status: 200)
+```
+
+### 6. Do a scan with Nikto on port 80.
+```bash
+nikto -h http://10.12.1.4x -p 80
+```
+**Response**: The scan will produce a detailed report. Save this output and review it for vulnerabilities or interesting files.
+
+**An informative file in PHP seems to be available, what is its name?**
+Check the Nikto or Gobuster results. Look for PHP files that provide detailed information:
+```
+info.php - PHP Info
+```
+
+### 7. What application has a name that starts with T and ends with Y?
+This application can often be found in Gobuster or Nikto results.
+
+- **Application**:  `Tiny`, 
+
+### 8. What curl command can you use to see the server version?
+The `curl` command to view server version:
+
+```bash
+curl -I http://10.12.1.4x | grep Server
+```
+
+### 9. What tool for enumerating files does it do recursively? (By default)
+
+**Response**: `dirb`
+
+### 10. What other administration application is currently also on port 80?
+
+- **Application**: `phpMyAdmin` or `Adminer`
+

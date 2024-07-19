@@ -56,3 +56,33 @@ read this documentation :  https://www.pentestpartners.com/security-blog/snmp-si
 **Tools :**
 - snmpwalk: snmpwalk -v 1 -c public 192.168.99.144
 - snmpcheck: snmpcheck -t 192.168.99.144
+
+## Exercices 
+
+
+⚠️⚠️⚠️ Please save your answers. Your coaches may ask you for a copy of all your answers at the end of the challenge. ⚠️⚠️⚠️
+
+**Ip : 10.12.1.36 
+*With rpc protocol*
+1. With the rpc protocol, how many users can you find ?
+
+`rpcclient -U "" -N 10.12.1.36`
+
+2. What is the rid of msfadmin?
+    ```
+    enumdomusers
+    queryuser msfadmin
+    ```
+3. What is the path of msfadmin's profile?
+    ```
+    queryuser msfadmin
+    ```
+
+4. When did msadmin last change password?
+    ```
+    queryuser msfadmin
+    ```
+5. When should msfadmin change its password?
+    ```
+    queryuser msfadmin
+    ```

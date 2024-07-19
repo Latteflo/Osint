@@ -18,3 +18,39 @@ Technically, it would also be possible to send emails directly from the sender's
 
 ## Read this documentation 
 https://pentestmonkey.net/tools/user-enumeration/smtp-user-enum
+
+
+## Exercises 
+⚠️⚠️⚠️ Please save your answers. Your coaches may ask you for a copy of all your answers at the end of the challenge. ⚠️⚠️⚠️
+
+IP : 10.12.1.36 
+1. How many commands are allowed on port 25?
+![alt text](assets/image2.png)
+-9
+1. How many users can you enumerate via port 25?
+   
+`sudo apt-get install smtp-user-enum`
+`smtp-user-enum -M VRFY -U users.txt -t 10.12.1.36`
+
+3. Send a mail with the email admin@local to root@local by connecting to the smtp server.
+
+```
+telnet 10.12.1.36 25
+HELO local
+MAIL FROM: <admin@local>
+RCPT TO: <root@local>
+DATA
+Subject: Test Mail
+This is a test email.
+.
+QUIT
+```
+
+4. Connect to ssh with msfadmin:msfadmin creds and check if you have sent the mail
+5. 
+```
+# Connect to SSH and verify email
+ssh msfadmin@10.12.1.36
+sudo cat /var/log/mail.log | grep 'admin@local'
+sudo cat /var/mail/root
+```
