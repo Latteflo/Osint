@@ -54,22 +54,7 @@ Let's tackle each exercise using appropriate DNS enumeration tools and commands.
 ### 1. What is the IP address of adlp-corp.com?
 To find the IP address of a domain, you can use the `nslookup` or `dig` command.
 
-**Command**:
-```bash
-nslookup adlp-corp.com
-```
-
-**Response**:
-```bash
-Server:         8.8.8.8
-Address:        8.8.8.8
-
-Non-authoritative answer:
-Name:   adlp-corp.com
-Address: 192.0.2.1
-```
-
-The IP address of adlp-corp.com is `192.0.2.1`.
+![alt text](assets/image3.png)
 
 ### 2. What is the TXT record of adlp-corp.com?
 To find the TXT record, use the `dig` command.
@@ -79,12 +64,8 @@ To find the TXT record, use the `dig` command.
 dig txt adlp-corp.com
 ```
 
-**Response**:
-```bash
-; <<>> DiG 9.16.1-Ubuntu <<>> txt adlp-corp.com
-;; ANSWER SECTION:
-adlp-corp.com.       3600    IN      TXT     "v=spf1 include:_spf.google.com ~all"
-```
+![alt text](assets/image4.png)
+
 The TXT record of adlp-corp.com is `v=spf1 include:_spf.google.com ~all`.
 
 ### 3. What are the MX records of becode.org?
@@ -96,17 +77,7 @@ dig mx becode.org
 ```
 
 **Response**:
-```bash
-; <<>> DiG 9.16.1-Ubuntu <<>> mx becode.org
-;; ANSWER SECTION:
-becode.org.         3600    IN      MX      10 alt1.aspmx.l.google.com.
-becode.org.         3600    IN      MX      20 alt2.aspmx.l.google.com.
-becode.org.         3600    IN      MX      30 alt3.aspmx.l.google.com.
-```
-The MX records of becode.org are:
-- `10 alt1.aspmx.l.google.com`
-- `20 alt2.aspmx.l.google.com`
-- `30 alt3.aspmx.l.google.com`
+![alt text](assets/image5.png)
 
 ### 4. What are the MX records of adlp-corp.com?
 To find the MX records, use the `dig` command.
@@ -117,12 +88,7 @@ dig mx adlp-corp.com
 ```
 
 **Response**:
-```bash
-; <<>> DiG 9.16.1-Ubuntu <<>> mx adlp-corp.com
-;; ANSWER SECTION:
-adlp-corp.com.       3600    IN      MX      10 mail.adlp-corp.com.
-```
-The MX record of adlp-corp.com is `10 mail.adlp-corp.com`.
+![alt text](assets/image6.png)
 
 ### 5. What is the first NS name server of adlp-corp.com?
 To find the NS records, use the `dig` command.
@@ -131,15 +97,8 @@ To find the NS records, use the `dig` command.
 ```bash
 dig ns adlp-corp.com
 ```
-
 **Response**:
-```bash
-; <<>> DiG 9.16.1-Ubuntu <<>> ns adlp-corp.com
-;; ANSWER SECTION:
-adlp-corp.com.       3600    IN      NS      ns1.adlp-corp.com.
-adlp-corp.com.       3600    IN      NS      ns2.adlp-corp.com.
-```
-The first NS name server of adlp-corp.com is `ns1.adlp-corp.com`.
+![alt text](assets/image7.png)
 
 ### 6. Use a brute force tool to find subdomains of adlp-corp.com. How many did you find?
 Using `gobuster` to brute force subdomains.
@@ -158,17 +117,21 @@ Found: shop.adlp-corp.com
 ```
 Number of subdomains found: 4
 
-### 7. Use theHarvester tool at becode.org. How many LinkedIn Users?
+### 7. Use theHarvester tool at becode.org. How many LinkedIn Links?
 **Command**:
 ```bash
-theHarvester -d becode.org -b linkedin
+theHarvester -d becode.org -b all
 ```
+![alt text](assets/image8.png)
 
 ### 8. Use theHarvester tool at becode.org. How many IP addresses did you find?
 **Command**:
 ```bash
 theHarvester -d becode.org -b all
 ```
+
+![alt text](assets/image9.png)
+
 ### 9. Write a small script to attempt a zone transfer from adlp-corp.com using a higher-level scripting language such as Python, Perl, or Ruby.
 **Python Script**:
 ```python

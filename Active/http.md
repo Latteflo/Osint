@@ -193,7 +193,6 @@ Please, follow this link :
 
 
 ## Exercises 
-⚠️⚠️⚠️ Please save your answers. Your coaches may ask you for a copy of all your answers at the end of the challenge. ⚠️⚠️⚠️
 
 IP : 10.12.1.4x
 
@@ -201,7 +200,7 @@ IP : 10.12.1.4x
 We use Gobuster to enumerate files and directories on port 80.
 
 ```bash
-gobuster dir -u http://10.12.1.4x -w /usr/share/wordlists/dirb/common.txt
+gobuster dir -u http://10.12.1.4x -w ./SecLists/Discovery/Web-Content/common.txt
 ```
 
 ### 2. What is the version of Apache?
@@ -209,10 +208,6 @@ We can use `curl` to get the server headers and find the Apache version.
 
 ```bash
 curl -I http://10.12.1.4x
-```
-Response:
-```
-Server: Apache/2.4.29 (Ubuntu)
 ```
 
 ### 3. What is the version of PHP?
@@ -227,10 +222,6 @@ nikto -h http://10.12.1.4x
 ```bash
 nikto -h http://10.12.1.4x
 ```
-**Response**: The output will show various vulnerabilities and extensions.
-```
-/phpinfo.php - PHP Info (shows detailed information about PHP configuration)
-```
 
 ### 5. What is the name of the file in `testoutput`?
 Check the contents of the `testoutput` directory using Gobuster.
@@ -238,16 +229,11 @@ Check the contents of the `testoutput` directory using Gobuster.
 ```bash
 gobuster dir -u http://10.12.1.4x/testoutput -w /usr/share/wordlists/dirb/common.txt
 ```
-**Response**: The output will list files in the `testoutput` directory.
-```
-/testoutput/info.php  (Status: 200)
-```
 
 ### 6. Do a scan with Nikto on port 80.
 ```bash
 nikto -h http://10.12.1.4x -p 80
 ```
-**Response**: The scan will produce a detailed report. Save this output and review it for vulnerabilities or interesting files.
 
 **An informative file in PHP seems to be available, what is its name?**
 Check the Nikto or Gobuster results. Look for PHP files that provide detailed information:
