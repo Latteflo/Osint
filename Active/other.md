@@ -59,14 +59,11 @@ read this documentation :  https://www.pentestpartners.com/security-blog/snmp-si
 
 ## Exercices 
 
-
-⚠️⚠️⚠️ Please save your answers. Your coaches may ask you for a copy of all your answers at the end of the challenge. ⚠️⚠️⚠️
-
 **Ip : 10.12.1.36 
 *With rpc protocol*
 1. With the rpc protocol, how many users can you find ?
 
-`rpcclient -U "" -N 10.12.1.36`
+    `rpcclient -U "" -N 10.12.1.36`
 
 2. What is the rid of msfadmin?
     ```

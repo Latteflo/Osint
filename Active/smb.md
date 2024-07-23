@@ -9,36 +9,71 @@ https://www.hackingarticles.in/a-little-guide-to-smb-enumeration/
 
 
 ## Exercises 
-⚠️⚠️⚠️ Please save your answers. Your coaches may ask you for a copy of all your answers at the end of the challenge. ⚠️⚠️⚠️
 
 - **Important : Important: you must be connected to the vpn**
-
 
 - Do the following exercises without authentication.
 - There are many tools to get the same answers. It doesn't matter which tool, the important thing is the answer.
 
 ## IP : 10.12.1.36
+
 1. What is the OS ?
- `nmap -O 10.12.1.36`
+
+     `nmap -O 10.12.1.36`
+
+     ![alt text](assets/image20.png)
+      
+      **OS:x86_64-pc-linux-gnu**
+
 2. What is the version of samba on the box? 
-`nmap --script smb-os-discovery 10.12.1.36`
-or 
-`smbclient -L //10.12.1.36 -N`
+
+    `nmap --script smb-os-discovery 10.12.1.36`
+
+    ![alt text](assets/image21.png) 
+
+    **Samba version: 3.0.20-Debian**
 
 3. How many group names are there? (use nbtstat)
-`nbtscan 10.12.1.36`
+  
+    `nbtscan 10.12.1.36`
+
+     ![alt text](assets/image22.png) 
 
 4. What is the FQDN ?
-`nmap --script smb-os-discovery 10.12.1.36`
+    
+    `nmap --script smb-os-discovery 10.12.1.36`
+
+     **FQDN: metasploitable.localdomain**
+
+
 5. What is the Netbios computer name. 
-`nbtscan 10.12.1.36`
+    
+    `nbtscan 10.12.1.36`
+
+     **METASPLOITABLE**
+
 6. How many disks are shared?
-`smbclient -L //10.12.1.36 -N`
+
+    `smbclient -L //10.12.1.36 -N --option='client min protocol=NT1'`
+
+    ![alt text](assets/image24.png) 
+
+     **3 disks are shared (print$, tmp, and opt are listed as "Disk" type shares)**
 7. Which one is available for reading and writing? 
-`smbclient -L //10.12.1.36 -N`
+    
+     Based on the output, the 'tmp' share is likely available for reading and writing.
+    (The comment "oh noes!" suggests it might be openly accessible, but to confirm this, we'd need to attempt to connect to it)
+
 8. What flag did you find when you logged in?
-`smbclient //10.12.1.36/share_name -N`
+    
+    `smbclient //10.12.1.36/share_name -N`
+
 9.  What is the path that begins with ``c:\`` in this file?
-`smbclient //10.12.1.36/share_name -N`
-10. How many users can you find ?
-`enum4linux -U 10.12.1.36`
+    
+    `smbclient //10.12.1.36/share_name -N`
+
+10.  How many users can you find ?
+    
+        `enum4linux -U 10.12.1.36`
+
+      ![alt text](assets/image23.png) 

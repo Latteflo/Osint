@@ -21,16 +21,26 @@ https://pentestmonkey.net/tools/user-enumeration/smtp-user-enum
 
 
 ## Exercises 
-⚠️⚠️⚠️ Please save your answers. Your coaches may ask you for a copy of all your answers at the end of the challenge. ⚠️⚠️⚠️
 
 IP : 10.12.1.36 
 1. How many commands are allowed on port 25?
-![alt text](assets/image2.png)
--9
-1. How many users can you enumerate via port 25?
-   
-`sudo apt-get install smtp-user-enum`
-`smtp-user-enum -M VRFY -U users.txt -t 10.12.1.36`
+
+    `telnet 10.12.1.36 25`
+
+HELO 
+EHLO
+MAIL FROM
+RCPT TO
+DATA
+RSET
+NOOP
+VRFY
+QUIT
+
+total 9 on them. 
+
+2. How many users can you enumerate via port 25?
+   root, user, postman, mail 
 
 3. Send a mail with the email admin@local to root@local by connecting to the smtp server.
 
